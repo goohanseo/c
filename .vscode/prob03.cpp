@@ -13,4 +13,4 @@ int main(void){
         for (int n = 0; n<=i; n++ ){
         printf("%d ",list[n]);}
     }
-}
+}ㅁㄴㅇㄹ
