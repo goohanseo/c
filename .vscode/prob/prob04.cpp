@@ -19,7 +19,7 @@ int main(void){
     printf("\n하나의 정수 k를 입력하시오");
     scanf("%d", &k);
     int mim = list[0]-k;
-    abs(mim);
+
     for(i=0; i<n; i++)
         if (abs(list[i]-k)<abs(mim)){
     int mim = list[i]-k;
