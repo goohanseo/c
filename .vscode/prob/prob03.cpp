@@ -16,7 +16,7 @@ int main(void) {
 		isDup = 0; //중복 false로 초기화 
 		for (int i = 0; i <= n; i++) { //중복 검사 실행
 			if(arr[i] == num) { //num이 arr[i]와 일치하면 중복문구 출력
-				printf("duplicate\n");
+				printf("duplicate \n");
 				isDup = 1; //중복 true
 				n--; 
 				break;

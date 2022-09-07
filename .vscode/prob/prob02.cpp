@@ -3,7 +3,7 @@
 int main(void){
     int n;
     while(1){
-    printf("입력될 정수의 개수(2<=n<=100)를 입력하시오:");
+    printf("입력될 정수의 개수(2<=n<=100)를 입력하시오: ");
     scanf("%d",&n);
     if (n>=2 && n<=100)
     break;
