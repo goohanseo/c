@@ -1,4 +1,4 @@
-//테스트 결과 데이터 출력 완료
+//테스트 데이터 통과
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 
@@ -13,7 +13,7 @@ int main(void) {
 		if (num == -1) {
 			break;
 		}
-		isDup = 0; 
+		isDup = 0;  //중복 flase로 초기화
 		for (int i = 0; i <= n; i++) {
 			if(arr[i] == num) { 
 				printf("duplicate \n");
@@ -21,7 +21,7 @@ int main(void) {
 				n--; 
 				break;
 			}
-		}
+		} //현재 arr[i]에 중복된다면 넣지 않고 duplicate 출력, 중복되지 않는다면 arr[i]배열에 입력
 		
 		if (isDup == 0) { 
 			arr[n] = num; 

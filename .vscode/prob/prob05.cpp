@@ -1,3 +1,4 @@
+//테스트 데이터 통과
 #include <stdio.h>
 #include <vector>
 #include <algorithm>
@@ -13,8 +14,8 @@ int main(void){
             int tmp;
 		scanf("%d", &tmp);
 		v.push_back(tmp);}
-    sort(v.begin(),v.end());
-    v.erase(unique(v.begin(),v.end()),v.end());
+    sort(v.begin(),v.end()); //벡터 소트 정렬을 통해 순서대로 정렬
+    v.erase(unique(v.begin(),v.end()),v.end()); //정렬 후 중복되는 벡터 삭제
     printf("%d: ",n);
     for (int i=0;i<v.size();i++)
     printf("%d ",v[i]);
