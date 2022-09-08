@@ -1,3 +1,4 @@
+//테스트 데이터 실패
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -5,19 +6,27 @@
 using namespace std;
 
 int main(void){
-    for(int i=0; i<1000000; i++){
-        int count[6] = {0,};
-    int N;
+    int n;
+    int k = (1/6)*n;
+    double t=0;
     printf("몇번 던질지 N값을 입력하시오:");
-    scanf("%d",&N);
+    scanf("%d",&n);
+    
+    
+    int count[6] = {0,};
+    
     srand((unsigned int) time(NULL));
-    for(int i =0; i< N; i++)
+    for(int i=0; i<1000000;i++){
+    for(int i =0; i< n; i++)
     {
         count[rand() % 6]++;
     }
-    printf("1의 개수 : %d\n",count[0]);
-    printf("상수(1~6) k를 입력하시오:");
-    int k;
-    scanf("%d",&k);
+    printf("%d\n",count[0]);
+    if (count[0]<n/6){
+    t++;}
+    count[0]=0;
     }
+    printf("%ld\n",t);
+    printf("%f",1-(t/1000000));
+return 0;
 }
