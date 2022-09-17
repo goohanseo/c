@@ -13,8 +13,6 @@ int main(void){
     scanf("%s",s1);
     printf("문자열 s2를 입력하시오");
     scanf("%s",s2);
-    printf("s1: %s\n",s1);
-    printf("s2: %s\n",s2);
     
     
     for(int i=0; i < strlen(s1); i++){
@@ -25,7 +23,7 @@ int main(void){
             }
             }
             if (not_same1==true){
-                printf("두 배열이 같은 속성이 아닙니다.");
+                printf("no");
                 return 0;
                 
             }
@@ -40,12 +38,12 @@ int main(void){
             }
             }
             if (not_same2==true){
-                printf("두 배열이 같은 속성이 아닙니다.");
+                printf("no");
                 break;
             }
     }
     if (not_same1==false && not_same2==false){
-    printf("두 배열은 같은 속성입니다.");
+    printf("yes");
     }
     return 0;
 }

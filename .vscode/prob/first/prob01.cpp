@@ -2,12 +2,13 @@
 #include <stdio.h>
 
 int main (void){
-int num;
+int n;
 printf("하나의 양의 정수를 입력하시오: ");
-scanf("%d",&num);
-while(num>0){
-  num = num/2;
-  printf("%d ",num);
+scanf("%d",&n);
+while(n>0){
+n /= 2;
+  printf("%d ",n);
 }
 return 0;
 }
+

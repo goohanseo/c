@@ -4,6 +4,7 @@
         "*.html": "html",
         "vector": "cpp",
         "string": "cpp",
-        "prob1-1": "cpp"
+        "prob1-1": "cpp",
+        "cstring": "cpp"
     }
 }

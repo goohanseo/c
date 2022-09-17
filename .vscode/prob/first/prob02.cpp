@@ -3,7 +3,7 @@
 
 int main() {
 	int n;
-	int num[100];
+	int num[100   ];
 	int tmp;
 
 	while (1) { //조건 달성 시까지 무한 루프
@@ -19,7 +19,7 @@ int main() {
 		scanf("%d", &num[i]);
 	}
 
-	for (int i = 0; i < n; i++) { //정렬 알고리즘 사용
+	for (int i = 0; i < n; i++) {
 		for (int j = i + 1; j < n; j++) { 
 			if (num[i] > num[j]) { //i와 j값 비교하여 작은 수 부터 배열 앞쪽에 오도록 배열
 				tmp = num[i];
