@@ -5,6 +5,7 @@
         "vector": "cpp",
         "string": "cpp",
         "prob1-1": "cpp",
-        "cstring": "cpp"
+        "cstring": "cpp",
+        "set": "cpp"
     }
 }
