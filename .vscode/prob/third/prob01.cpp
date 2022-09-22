@@ -1,45 +1,48 @@
-#define _CRT_SECURE_NO_WARNINGS
+//데이터 테스트 통과
 #include <stdio.h>
-#include <stdlib.h>
 #define BUFFER_SIZE 100
 
-void max();
-void swap();
 int n;
-int arr[BUFFER_SIZE];
-int max;
+int data[BUFFER_SIZE];
+void max_swap();
+int maximum;
 int tmp;
+int j;
+int k;
 
-
-int main(void) {
-	printf("n과 n개의 정수를 입력하시오:");
-	scanf("%d", &n);
-	for (int i = 0; i < n; i++) {
-		scanf("%d", &arr[i]);
-	}
-	for (int i = 0; i < n; i++) {
-		printf("%d", arr[i]);
-	}
-    printf("\n");
-	max();
-	swap();
-    for (int i = 0; i < n; i++) {
-		printf("%d", arr[i]);
-	}
-	return 0;
+int main(void){
+    printf("정수 n을 입력하시오:\n");
+    scanf("%d",&n);
+    printf("n개의 배열을 입력하시오:\n");
+    
+    for(int i =0; i<n; i++){
+        scanf("%d",&data[i]);
+    }
+    
+    k = n;
+    for(int i = 0; i < k-1; i++){
+    max_swap();
+    tmp = data[j];
+    data[j]=data[n-1];
+    data[n-1]= tmp;
+    n--;
+   
+    }
+     printf(" ");
+    for(int i =0; i<k; i++){
+        printf("%d ",data[i]);
+    }
+    return 0;
 }
 
-void max() {
-	max = arr[0];
-	for (int i = 0; i < n; i++) {
-		if (max < arr[i]) {
-			max = arr[i];
-		}
-	}
-}
-void swap(){
-    tmp = arr[n-1];
-    arr[n-1]=max;
 
+void max_swap(){
+    maximum = data[0];
+    for(int i = 0; i < n; i ++){
+        if (maximum <= data[i]){
+            maximum = data[i];
+            j = i;
+        }
+    }
 
 }

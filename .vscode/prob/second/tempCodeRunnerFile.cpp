@@ -1,1 +1,2 @@
-, buffer_len
+
+    data[n-1]= tmp;
