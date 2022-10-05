@@ -17,7 +17,7 @@ int main(void){
     printf("문자열을 입력하시오:");
     scanf("%s",sentence);
     n = strlen(sentence);
-    //printf("문자열의 갯수 : %d\n",n);
+    printf("문자열의 갯수 : %d\n",n);
     longest();
     maximum();
     int tmp = num + max_len ;
@@ -49,7 +49,7 @@ void maximum(){
         if(max_len < arr[i]){
         max_len = arr[i];
         num = i;}
-        //printf("연속된 자음의 최대 길이:%d,%d,%d\n",max_len,i,arr[i]);
+        printf("연속된 자음의 최대 길이:%d,%d,%d\n",max_len,i,arr[i]);
     }
-//printf("연속된 자음의 최대 길이:%d,시작 주소%d\n",max_len,num);
+printf("연속된 자음의 최대 길이:%d,시작 주소%d\n",max_len,num);
 }
