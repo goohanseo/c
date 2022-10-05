@@ -11,8 +11,6 @@ void count_dia_right();
 void count_dia_left();
 bool Finish1 = false;
 bool Finish2 = false;
-bool Finish3 = false;
-bool Finish4 = false;
 int arr[BUFFER_SIZE][BUFFER_SIZE];
 int n;
 FILE * file;
