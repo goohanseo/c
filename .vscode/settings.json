@@ -6,6 +6,7 @@
         "string": "cpp",
         "prob1-1": "cpp",
         "cstring": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "ratio": "cpp"
     }
 }

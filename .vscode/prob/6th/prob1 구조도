@@ -1,0 +1,67 @@
+파일을 전체 읽어오기
+if (head가 null일때){
+    첫번째 노드에 buf입력받기
+}
+else (head null이 아닐때){
+    if buf가 가장 작을때{
+        추가할 노드 생성해서 첫번째 노드 next해주고
+        head next 노드 설정
+    }
+    else if buf가 중간일때{
+        추가할 노드의 next->p노드
+        q->next를 추가할 노드에
+    }
+    else if buf가 같을때{
+        count 증가
+    }
+    else buf가 가장 클때{
+        맨 마지막에 노드 추가
+    }
+
+첫 번째 노드부터 모든 count 다 더하기
+
+
+
+buf를 받아서 노드로 넣기
+for(node p = head; p != NULL; p = p->next){
+    if(strcmp(p->data,buf)==0){
+        p->count++;
+    }
+    else(strcmp(p->data,buf)<1)
+}
+
+파일의 첫 단어는 head로 넘김
+그 이후 for문을 통해서 앞에서부터 사전식배열 검사
+구조체
+struct data
+       count
+
+사전식배열중 가장 앞일때
+
+Node *add_first(NOde *head, char *item)
+{
+Node *tmp = (Node *)malloc(sizeof(Node));
+tmp->data = buf;
+tmp->next = head;
+}
+
+사전식배열중 중간에서 클때
+다음값보다 작다면
+int add_after(Node *prev, char *item){
+if(strcmp(p->data,buf)>0)
+Node *tmp = (Node *)malloc(sizeof(Node));
+tmp->data = buf;
+tmp->next = prev->next;
+prev->next = tmp;
+
+사전식배열중 같은 것을 만난다면
+if(strcmp(p->data, buf)==0){
+    count++;
+}
+
+전체의 단어는 for(node p = head; p != NULL; p = p->next){
+    sum=0;
+    sum = sum + p->count;
+    return sum;
+}
+

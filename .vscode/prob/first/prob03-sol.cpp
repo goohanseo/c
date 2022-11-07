@@ -16,7 +16,7 @@ int main()
         scanf("%d", &k);
         if (k == -1)
             break;
-        insert(&n, num, k);
+        insert(&n, num, k); //n은 while 문 밖에서 받아오기때문에 포인터로 해야 값 변경 안 됨
     }
 
     return 0;
@@ -29,7 +29,7 @@ void insert(int *n, int num[], int k)
         if (num[i] == k)
         {
             printf("duplicate\n");
-            return;
+            return; //return으로 for문 종료
         }
     }
 
@@ -48,3 +48,25 @@ void insert(int *n, int num[], int k)
     }
     printf("\n");
 }
+
+// bool duplicate = false;
+// for (int i =0l i<n; i++){
+//     if (num[i] == k){
+//         printf("duplicate\n");
+//         duplicate = true;
+//         break;
+//     }
+// }
+// if (!duplicate){
+//     int j = n-1;
+//     while(j>=0 && num[j] > k){
+//         num[j+1] = num[j]
+//         j--;
+//     }
+//     num[j+1] = k;
+//     n++;
+
+//     for (int i =0; i<n; i++)
+//     printf("%d ", num[i]);
+//     printf("\n");
+// }

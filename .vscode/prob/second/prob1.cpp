@@ -1,4 +1,4 @@
-//데이터 테스트 통과
+ //데이터 테스트 통과
 #include <stdio.h>
 #include <string.h>
 #define MAX_LENGTH 20

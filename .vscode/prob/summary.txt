@@ -1,0 +1,3 @@
+키보드 입출력 : stdin
+단어 단위 입력 받기 getchar()
+#include<string.h>헤더파일 써야 str 사용가능  
