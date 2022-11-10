@@ -2,6 +2,8 @@
 #include "library.h"
 #include <stdlib.h>
 #include "string_tools.h"
+// #include <windows.h>
+
 #define NUM_CHARS 256 //한 바이트의 최대 표시
 #define BUFFER_LENGTH 256
 #define SIZE_INDEX_TABLE 100
@@ -15,6 +17,8 @@ void print_song(Song *);
 void insert_to_index_directory(Song *ptr_song);
 Artist *find_artist(char *name);
 SNode *find_snode(Artist *ptr_artist, char *title);
+void save_artist(Artist *p, FILE *fp);
+void save_song(song *ptr_song, FILE *fp);
 
 void initialize(){
     for (int i =0; i < NUM_CHARS; i++){
@@ -256,10 +260,118 @@ SNode *find_song(int index){
     }
     return ptr_snode;
 }
+
 void play(int index){
     SNode *ptr_snode = find_song(index);
     if(ptr_snode == NULL){
         printf("No such song exists. \n");
     }
-    printf("Found the song: %s", ptr_snode->song->title);
+
+    printf("Found the song: %s\n", ptr_snode->song->title);
+    //ShellExecute(GetDesktopWindow(), "open", ptr_snode->song->path, NULL, NULL, SW_SHOW);
 }
+
+void save (FILE *fp){
+    for (int i =0; i< NUM_CHARS; i++){
+        Artist *p = artist_directory[i];
+        while (p != NULL){
+            save_artist(p,fp);
+            p = p->next;
+        }
+    }
+}
+
+void save_artist(Artist *p, FILE *fp){
+    SNode *ptr_snode = p -> head;
+    while (ptr_snode != NULL){
+        save_song(ptr_snode->song, fp);
+        ptr_snode = ptr_snode-> next; 
+    }
+}
+
+void save_song(Song *ptr_song, FILE *fp){
+    if(ptr_song->artist != NULL){
+        fprintf(fp, "%s#", ptr_song->artist->name);
+    }
+    else{
+        fprintf(fp, "#");
+    }
+    
+    if(ptr_song->title != NULL){
+        fprintf(fp, "%s#", ptr_song->title);
+    }
+    else{
+        fprintf(fp, "#");
+    }
+    if(ptr_song->path != NULL){
+        fprintf(fp, "%s#\n", ptr_song->path);
+    }
+    else{
+        fprintf(fp, "#\n");
+    }
+}
+
+void remove(int index){ //단반향 연결리스트에서 삭제할 노드 이전의 노드의 주소를 찾아야한다.
+    //finde the song play와 비슷
+    SNode *q = NULL; //previous to p
+    SNode *p = index_directory[index%SIZE_INDEX_TABLE]; //head node
+    while (p != NULL && p->song->index != index){
+        q = p;
+        p = p->next;
+    }
+
+    if (p == NULL){ //eitehr empty list or nor exist
+       printf("No such song exists.\n");
+       return;
+    }
+    Song *ptr_song = p->song;
+    if (q == NULL){ // remove first
+        index_directory[index%SIZE_INDEX_TABLE] = p->next;
+    }
+    else{ //remove after q
+        q->next = p->next; // q->next = q->next->next;
+    }
+    free(p);
+
+    Artist *ptr_artist = ptr_song->artist;
+    
+    //finde the snode in the double linked list of ptr_artist
+    SNode *ptr_snode = find_snode(ptr_artist, ptr_song ->title);
+    if (ptr_snode == NULL){
+        printf("Not found snode - something wrong.\n");
+        return;
+    }
+    remove_snode(ptr_artist,ptr_snode);
+    destory_song(ptr_song);
+}
+
+void destory_song(Song *ptr_song){
+    if(ptr_song->title != NULL){
+        free(ptr_song->title);
+    }
+    if(ptr_song->path != NULL){
+        free(ptr_song->path);
+    }
+    free(ptr_song);
+}
+
+void remove_snode(Artist *ptr_artist,SNode *ptr_snode){
+	SNode* first = ptr_artist->head;
+	SNode* last = ptr_artist->tail;
+	if (first == ptr_snode && last == ptr_snode) { // SNode가 유일한 노드일 때
+		first = NULL;
+		last = NULL;
+	}
+	else if (first == ptr_snode) { // remove first
+		ptr_snode->next->prev = NULL;
+		first = ptr_snode->next;
+	}
+	else if (last == ptr_snode) { // remove last
+		ptr_snode->prev->next = NULL;
+		last = ptr_snode->prev;
+	}
+	else { // in the middle
+		ptr_snode->next->prev = ptr_snode->prev;
+		ptr_snode->prev->next = ptr_snode->next;
+	}
+	free(ptr_snode);

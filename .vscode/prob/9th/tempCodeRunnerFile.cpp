@@ -1,1 +1,1 @@
-find_snode
+remove
