@@ -1,2 +1,1 @@
-++num;
-    // case_array[num] = (Data_case)malloc(sizeof(Data_case));
+case_array[num]->huristic = case_array[num]->huristic + k;
