@@ -25,11 +25,11 @@ int m = 0; //h함수 구하기 위한 정수
 int main(){
     clock_t start = clock();
     open_file();
-    num =1;
-    for(int i = 0; i < n; i++){
-         calculate();
-        num++;
-    }
+    num = 1;
+
+    calculate();
+    
+    fclose(file);
       clock_t end = clock();
       printf("Elapsed Time: %lf\n", (double)(end - start)/ CLOCKS_PER_SEC);
     return 0;
@@ -66,57 +66,33 @@ void organize_file(){
         //printf("%d-finished\n",i);
     }
     printf("open_file finished\n");
-    fclose(file);
+    
+
 }
 
-// void create_case(){
-//     // ++num;
-//     // case_array[num] = (Data_case)malloc(sizeof(Data_case));
-//     case_array[num]->index = case_array[num]->index;
-//     printf("%d-", case_array[num]->index);
-//     printf("create\n");
-//     }
 
 void calculate(){
-    //printf("%d\n",(case_array[num]->index));
-    long long k =0 ;
-    int max_index = 0;
-    case_array[num]->huristic = 0;
-
-    for(int j = 0; j < (case_array[num]->index); j++){
-        if(case_array[num]->argument[j] >= case_array[num]->argument[max_index]){
+    for(int i = 1; i <= n; i++){
+        
+        long long sum = 0;
+        int max_index = 0;
+        
+        for(int j = 0; j < (case_array[i]->index); j++){
+        int tmp = 1;
+        if(case_array[i]->argument[j] >= case_array[i]->argument[max_index]){
             max_index = j;
-            case_array[num]->huristic = case_array[num]->huristic + j;
+            sum = sum + j;
         }
-        else(){
-            for(int i = j; i > max_index; i--){
-
+        else{
+            
+                while(case_array[i]->argument[j] >= case_array[i]->argument[j-tmp]){
+                        
+                        sum = sum + 1;
+                        tmp++;
+                    }
             }
         }
-    }
-
-
-
-
-    //for(int j = 0; j < (case_array[num]->index); j++)
-    int j = 0;
-    while(j <(case_array[num]->index)){ //구조체 index값만큼 뒤에서부터 검사
-        if(j == 0){
-            k = 0;
-            case_array[num]->huristic = case_array[num]->huristic + k;
-            j++;
-        }
-        else if(j != 0 && (case_array[num]->argument[j] >= case_array[num]->argument[j-1])){
-            k = k + 1;
-            case_array[num]->huristic = case_array[num]->huristic + k;
-            j++;
-        }
-        else if(j != 0 && (case_array[num]->argument[j] < case_array[num]->argument[j-1])){
-            k = 0;
-            case_array[num]->huristic = case_array[num]->huristic + k;
-            j++;
-            break;
-        }
-    }
-printf("%d : %lld\n", num, case_array[num]->huristic%1000000); //출력하기
+    printf("%d : %lld\n", i, sum%1000000); //출력하기     
+     }
+    
 }

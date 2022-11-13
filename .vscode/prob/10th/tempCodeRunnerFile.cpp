@@ -1,1 +1,1 @@
-case_array[num]->huristic = case_array[num]->huristic + k;
+-
