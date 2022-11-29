@@ -7,6 +7,8 @@
         "prob1-1": "cpp",
         "cstring": "cpp",
         "set": "cpp",
-        "ratio": "cpp"
+        "ratio": "cpp",
+        "__bit_reference": "cpp",
+        "__split_buffer": "cpp"
     }
 }

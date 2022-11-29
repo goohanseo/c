@@ -31,12 +31,18 @@ typedef struct pos{
     int x, y;
 }Position;
 
-typedef struct stack {
-    Position pos[STACK_SIZE];
-    int top;
-    int comp_size;
-}Stack;
 
+typedef struct node {
+	Position pos;
+	node* next;
+}Node;
+
+typedef struct queue {
+	Node* front;
+	Node* rear;
+	int size;
+}Queue;
+ 
 void create(int test_case);
 void read_maze();
 void search(Testcase*);
@@ -46,17 +52,21 @@ void print(Testcase*);
 
 Position moveto(Position pos, int dir);
 
-Stack* create();
-void initStack(Stack*);
-void push(Stack *, Position pos);
-Position pop(Stack *);
-bool isEmpty(Stack *);
+Queue* create();
+void enqueue(Queue*, Position pos);
+Position dequeue(Queue*);
+Position peek(Queue*);
+void destoy(Queue*);
+void make_empty(Queue*);
+bool isEmpty(Queue*);
 
 int test_case;
 Testcase *test[MAX];
+Queue* q;
 
 int main(){
     read_maze();
+    q = create();
     for(int i = 0; i< test_case; i++){
         search(test[i]);
         print(test[i]);
@@ -93,38 +103,25 @@ void read_maze(){
 
 void search(Testcase *test){
     Position cur;
-    Stack *s = create();
     while (1){
         cur = startPos(test);
         if(cur.x == -1 && cur.y == -1){ 
-			return;
+			break;
     }
-    while(1){
-        test->maze[cur.x][cur.y] = VISITED;
-        if (isEmpty(s) && s->comp_size != 0) { // stack이 비어있을 때만 검사
-				test->comp_arr[test->comp_num++] = s->comp_size+1;
-				initStack(s); // 스택 초기화
-				break;
-			}
-
-            bool forwarded = false;
-            for(int dir = 0; dir < 8; dir++){
-                if (movable(test,cur,dir)){
-                    push(s,cur);
-                    cur = moveto(cur,dir);
-                    forwarded = true;
-                    break;
-                }
-            }
-            if(!forwarded){
-                test->maze[cur.x][cur.y] = BACKTRACKED;
-                if (isEmpty(s)){
-                    printf("No path.\n");
-                    break;
-                }
-                cur = pop(s);
+    enqueue(q, cur);
+    test->maze[cur.x][cur.y] = -1;
+    while(!isEmpty(q)){
+        cur = dequeue(q);
+        for(int dir = 0; dir < 8; dir++){
+            if (movable(test, cur, dir)){
+                Position p = moveto(cur,dir);
+                test->maze[p.x][p.y] = test->maze[cur.x][cur.y] - 1;
+                enqueue(q, p);
             }
         }
+    }
+    test->comp_arr[test->comp_num++] = q->size;
+    make_empty(q);
     }
 }
 
@@ -138,6 +135,8 @@ bool movable(Testcase *test, Position pos, int dir){
 
 Position startPos(Testcase *test){
     Position start_pos;
+    start_pos.x = -1;
+	start_pos.y = -1;
     for (int i =0; i< test->maze_size; i++){
         for(int j =0; j < test->maze_size; j++){
             if (test->maze[i][j] == PATH){
@@ -148,8 +147,7 @@ Position startPos(Testcase *test){
             }
         }
     }
-    start_pos.x = -1;
-	start_pos.y = -1;
+    
 	return start_pos;
 }
 
@@ -180,36 +178,71 @@ Position moveto(Position pos, int dir) {
 	return next;
 }
 
-Stack* create() {
-    Stack *s = (Stack *)malloc(sizeof(Stack));
-    s->top = -1;
-    s->comp_size = 0;
-
-    return s;
+Queue* create() {
+    Queue* q = (Queue*)malloc(sizeof(Queue));
+	q->front = NULL;
+	q->rear = NULL;
+	q->size = 0;
+	
+	return q;
 }
 
-void initStack(Stack* s) {
-    s->top = -1;
-    s->comp_size = 0;
+void enqueue(Queue *q, Position pos) {
+    Node* new_node = (Node*)malloc(sizeof(Node));
+	
+	new_node->pos = pos;
+	new_node->next = NULL;
+	if (q->front == NULL) { 
+		q->front = new_node;
+		q->rear = new_node; 
+	}
+	else { 
+		q->rear->next = new_node;
+		q->rear = new_node;
+	}
+	q->size++;
 }
 
-void push(Stack *s, Position pos) {
-    s->comp_size++;
-    s->top++;
-    s->pos[s->top] = pos;
+Position dequeue(Queue *q) {
+    Node* old_front;
+	Position pos;
+
+	old_front = q->front;
+	pos = old_front->pos;
+	q->front = old_front->next;
+	if (q->front == NULL) { 
+		q->rear = NULL;
+	}
+	free(old_front); 
+
+	return pos; 
 }
 
-Position pop(Stack *s) {
-    Position tmp = s->pos[s->top];
-    s->top--;
-    
-    return tmp;
+
+Position peek(Queue* q) { 
+	if (isEmpty(q)) {
+		printf("ERROR: Queue is empty\n");
+	}
+	return q->front->pos;
 }
 
-bool isEmpty(Stack* s) {
-    if (s->top < 0) {
-        return true;
-    }
-    return false;
+void destoy(Queue* q) {
+	make_empty(q);
+	free(q);
 }
 
+void make_empty(Queue* q) {
+	while (!isEmpty(q)) {
+		dequeue(q);
+	}
+	q->size = 0;
+}
+
+bool isEmpty(Queue* q) {
+	if (q->front == NULL) {
+		return true; //NULL이면 true 반환
+	}
+	else {
+		return false;
+	}
+}

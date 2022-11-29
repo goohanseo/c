@@ -11,7 +11,7 @@
           "${fileDirname}/*.cpp",
 
           "-o",
-          "${fileDirname}/${fileBasenameNoExtension}.o", //파일 빌드, 실행
+          "${fileDirname}/${fileBasenameNoExtension}.out", //파일 빌드, 실행
 
       ],
         "options": {
