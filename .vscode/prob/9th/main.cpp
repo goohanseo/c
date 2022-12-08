@@ -30,7 +30,7 @@ void handle_search(){
         printf("    Artist name required.\n");
         return;
     }
-    printf("    Ttile:  ");
+    printf("    Title:  ");
     int title_len = read_line(stdin, title, BUFFER_LENGTH);
 
     if (title_len <= 0){
@@ -290,6 +290,7 @@ Song *create_song_instance(Artist *ptr_artist, char *title, char *path){
     ptr_song->path = path;
     ptr_song->index = num_index;
     num_index++;
+
     return ptr_song;
 }
 void add_song(char *artist, char *title, char *path){

@@ -1,0 +1,125 @@
+여러 개의 소스 파일 분할 시 head file
+프로토 타입을 헤더 파일에 정의
+메인에서 헤더파일을 include
+
+extern: 컴파일러에게 변수 i가 다른 파일에 정의되어 있음을 알려주는 역할
+중복된 헤더 파일 문제: 타입 정의가 중복 struct A; A 구조체가 두 번 정의
+
+#ifndef -> if not define //만약 정의가 되어 있지 않다면 정의하라
+#endif -> end if
+
+
+
+
+artist 입력 받아서 이미 존재하는 아티스트인지 검사
+존재하는 아티스트인지 검사하는 함수 만들기
+이미 존재하지 않는 아티스트라면 하나 새로 생성하기
+새로 생성하거나 존재하는 아티스트 포인터를 받아오기
+새로운 song 객체 만들어 주기
+song 객체를 만들때 이미 만들어 놓은 아티스트 구조체를 바로 넣어줌
+malloc할때 노래 index 추가해주기
+song을 거느리는 snode가 이중 연결되어 있는것이므로
+song을 새로 생성할떄 snode도 같이 생성해주어야 한다
+새로 생성될 artist 객체에 snode를 삽입해줌
+artist의 노래 리스트 중에서 현재 삽입할 snode의 title의 순서를 비교해서 넣어야함
+insert node 제대로 생성하기
+status
+print artist, song 하기
+
+14-6 file load
+file load하는 첫 문장 구현하기 handle load
+load 및 close
+file을 load하면서 read_line으로 한 줄 씩 읽어온다.
+한 줄마다 제일 처음은 구분자 #이 올때 name으로 저장한다
+그 이후는 strtok(NULL, "#")로 받아오기
+파일로 부터 한줄씩 모든 노래를 받아온다음
+add_song으로 넣어주기
+
+14-7 search 구현하기
+가수 이름은 무조건 받을 수 있도록 구현하고
+title은 안 나와도 되니 title_len을 이용해서
+제목이 있는지 없는지 나누어서 구현
+add_artist 할때 쓴 find_artist 사용
+현재 선택한 artist의 젤 첫 node를 지정해서 title 검색시작
+헤더파일에 프로토타입을 정해주는 경우는 다른 소스파일에서 사용할 경우
+
+14-8 play index 구현
+index_directory 
+단방향 연결 리스트를 사용하는 이유
+snode 이용해서 같은 1의 자리 index끼리 모음
+add_song 할때 index_directory를 같이 해줌
+Play 구현할때는 play 이후 index값이 와야하기 때문에 strtok(NULL," ");
+해줌으로써 그 다음 인덱스 값을 받아올수 잇음
+play를 구현해줄 때는 index를 찾아주는 SNode find_song(int index) 구현
+
+14-9 play 뮤직비디오 구현, save 기능 추가
+Save의 경우 as와 파일을 받아야하기때문에 strtok가 두 번
+모든 내용을 출력하는 status와 유사하다
+
+14-10 remove 함수 구현
+handle_play와 비슷
+Index 먼저 찾아오기
+
+Song을 삭제하기 위해
+Song, 
+Artist_directory의 SNode
+index_directory의 SNode
+를 삭제시켜야함
+
+
+
+15-2
+배열과 연결리스트로 스택 작성하기
+stack이 두 개가 필요하다면 연결리스트 속에서
+Push, pop을 두 개를 만들어야 하나?
+
+push와 pop을 할 때 어떤 stack에 push와 pop을 할 것인지 매개변수로 넘겨주어야 함
+
+15-3 
+Typedef int item을 이용한 코드의 재활용
+한 stack 구조체마다의 구성
+struct stack_type{
+    Item *contents;
+    int top;
+    int size;
+}
+stack을 사용하기 위해서는 그 스택을 만들어주어야 함
+물론 그 스택안에 들어갈 content도 또한 만들어주어야 함
+
+
+16-2
+중위표기식으로 받아서 후위표기식으로 변환하기
+
+17 maze-stack
+미로찾기 과정 62p
+
+
+18-1
+연결리스트의 rear를 삽입
+front를 삭제
+
+18-2 
+환형 배열
+array에서 rear가 front보다 왼쪽에 있을 수 있음
+queue에서는 front부터 rear까지 꽉차잇어야한ㄴ다
+환형이라 rear와 front가 순서가 바뀌어 있는 상황에서 reallocate를 하게되면
+front와 rear사이에 확장된 빈칸이 나오게 되어버린다
+->데이터 복사할깨 프론트부터 받아오면 된다.
+int j = q->front; front를 j로 두고
+j를 tmp[0]자리에 넣음
+
+18-3
+BFS 너비 우선 탐색은 최소 비용으로 접근 가능
+DFS 깊이 우선 탐색
+
+19
+recursion에서 매개변수를 명시화 해야하는이유?
+좀 더 많은 정보를 주어야 한다
+다시 함수를 불러올 때 시작 지점을 알려주기
+
+
+
+
+
+
+
