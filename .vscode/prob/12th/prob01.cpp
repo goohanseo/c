@@ -54,7 +54,7 @@ if (str1[0] < str2[0])
 return -1;
 else if (str1[0] > str2[0])
 return 1;
-else if(str1[0] == NULL) {
+else if(str1[0] == NULL && str2[0] = NULL) {
 return 0;
 }
 else
